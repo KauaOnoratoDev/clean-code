@@ -1,6 +1,6 @@
 import {v4 as uuid} from 'uuid';
 import { User } from "@prisma/client";
-import { IUserRepository } from "./IUserRepository";
+import { ICreateUserDTO, IUserRepository } from "./IUserRepository";
 
 
 function userExistsByEmail(email: string, db: User[]): boolean {
@@ -14,7 +14,7 @@ class LocalUserRepository implements IUserRepository {
         this.userDb = [];
     }
 
-    createUser({ name, email }: User): void {
+    createUser({ name, email }: ICreateUserDTO): void {
         const id = uuid();
         const user = {name, email, id}
         const userExists = userExistsByEmail(email, this.userDb)

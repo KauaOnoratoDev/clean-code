@@ -5,10 +5,8 @@
   "repository": "git@github.com:KauaOnoratoDev/clean-code.git",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --transpile-only --respawn src/server.ts & echo $! > .pidfile",
-    "test": "jest",
-    "stop": "kill $(cat .pidfile) && rm .pidfile",
-    "start:test": "npm run dev && sleep 2 && npm run test && npm run stop"
+    "dev": "ts-node-dev --transpile-only --respawn src/server.ts",
+    "test": "jest"
   },
   "dependencies": {
     "express": "^4.21.2"

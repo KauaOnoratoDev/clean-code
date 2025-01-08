@@ -10,7 +10,9 @@ function userExistsByEmail(email: string, db: User[]): boolean {
 }
 
 class LocalUserRepository implements IUserRepository {
-    constructor(private userDb: User[]) {
+    private userDb: User[]
+
+    constructor() {
         this.userDb = [];
     }
 

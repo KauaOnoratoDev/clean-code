@@ -27,8 +27,10 @@ describe('Repository methods Test', () => {
         return user;
     }
 
-    function returnUserId(userslist: User[], userName: string): string {
-        const filteredUser = userslist.find(user => user.name === userName);
+    async function returnUserIdByName( userName: string): Promise<string> {
+         const usersList = await userRepository.getUsers();
+        
+        const filteredUser = usersList.find(user => user.name === userName);
 
         if (!filteredUser) {
             throw new Error('User not found');
@@ -65,7 +67,7 @@ describe('Repository methods Test', () => {
             userRepository.createUser(dataUserTest);
         } catch(error) {
             if (error instanceof Error) {
-                expect(error.message).toBe('Already registered user!')
+                expect(error.message).toBe('Already registered user!');
             }
         }
     });
@@ -73,11 +75,24 @@ describe('Repository methods Test', () => {
 
     it('getUserById method must return the user correctly', async () => {
         const usersList = await userRepository.getUsers();
-        const userId = returnUserId(usersList, 'name_test')
+        const userId = await returnUserIdByName('name_test');
 
         const user = await userRepository.getUserById(userId);
 
         expect(user).toBeDefined();
         expect(user.name).toBe('name_test');
+    });
+
+
+    it('updateUser method must update the user correctly', async () => {
+        const newData = {
+            name: 'updated_name',
+            email: 'updated_email'
+        }
+        const userId = await returnUserIdByName('name_test');
+        const updatedUser = await userRepository.updateUser(userId, newData);
+
+        expect( updatedUser.name).toBe(newData.name);
+        expect(updatedUser.email).toBe(newData.email);
     });
 });

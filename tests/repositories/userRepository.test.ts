@@ -122,7 +122,7 @@ describe('Repository methods Test', () => {
     });
 
 
-    it('', () => {
+    it('deleteUser method should not delete a user that does not exist', () => {
         const userId = 'nonExistingUserId';
 
         try {

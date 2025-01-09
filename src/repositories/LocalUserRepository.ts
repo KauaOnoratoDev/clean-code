@@ -42,8 +42,10 @@ class LocalUserRepository implements IUserRepository {
         return user;
     }
 
-    updateUser(id: string, data: IUserDTO): Promise<User> {
-        throw new Error("Method not implemented.");
+    async updateUser(id: string, data: IUserDTO): Promise<User> {
+        const userIndex = this.userDb.findIndex(user => user.id === id);
+        const updatedUser = this.userDb[userIndex] = {id, ...data};
+        return updatedUser;
     }
 
     deleteUser(id: string): void {

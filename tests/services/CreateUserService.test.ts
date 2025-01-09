@@ -1,22 +1,21 @@
-import LocalUserRepository from "../../src/repositories/LocalUserRepository";
 import CreateUserService from "../../src/services/CreateUserService";
 
 
-/**
- * Para testar outro repositorio, trocar a classe da instancia userRepository
- */
-
 describe('CreateUserService Test', () => {
-    const userRepository = new LocalUserRepository(); // Trocar para testes
-    const createUserService = new CreateUserService(userRepository);
-
+    let createUserService: CreateUserService;
+    
     const dataUserTest = {
         name: 'test_name',
         email: 'email_test@email.com'
     }
+    
+    beforeAll(() => {
+        createUserService = new CreateUserService(global.userRepository);
+
+    });
 
     it('The CreateUser service must run correctly', async () => {
-        createUserService.execute(dataUserTest);
+        await createUserService.execute(dataUserTest);
         expect(createUserService).toBeDefined();
         
         try {

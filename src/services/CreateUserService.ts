@@ -12,7 +12,11 @@ class CreateUserService {
     }
 
     async execute({name, email}: IRequest) {
-        this.userRepository.createUser({name, email})
+        try {
+            this.userRepository.createUser({name, email})
+        } catch (error) {
+            throw error;
+        }
     }
 }
 

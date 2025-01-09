@@ -2,6 +2,13 @@ import { User } from "@prisma/client";
 import { IUserRepository } from "../../src/repositories/IUserRepository";
 import LocalUserRepository from "../../src/repositories/LocalUserRepository";
 
+
+/**
+ * Para testar outro repositorio de usuarios, trocar a instancia userRepository
+ * para receber o repositorio desejado
+ */
+
+
 describe('Repository methods Test', () => {
     let userRepository: IUserRepository;
 
@@ -32,7 +39,7 @@ describe('Repository methods Test', () => {
     } 
 
     beforeAll(() => {
-        userRepository = new LocalUserRepository();
+        userRepository = new LocalUserRepository(); // Colocar repositorio desejado
 
         userRepository.createUser({
             name: 'name_test',

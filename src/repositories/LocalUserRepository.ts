@@ -22,7 +22,7 @@ class LocalUserRepository implements IUserRepository {
         const userExists = userExistsByEmail(email, this.userDb)
 
         if (userExists) {
-            throw new Error('Usuário já cadastrado!')
+            throw new Error('Already registered user!')
         }
 
         this.userDb.push(user);

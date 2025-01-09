@@ -54,7 +54,13 @@ describe('Repository methods Test', () => {
 
 
     it('createUser method should not create an existing user', async () => {
-        userRepository.createUser()
+        try {
+            userRepository.createUser(dataUserTest);
+        } catch(error) {
+            if (error instanceof Error) {
+                expect(error.message).toBe('Already registered user!')
+            }
+        }
     });
 
 

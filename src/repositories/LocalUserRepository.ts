@@ -44,6 +44,11 @@ class LocalUserRepository implements IUserRepository {
 
     async updateUser(id: string, data: IUserDTO): Promise<User> {
         const userIndex = this.userDb.findIndex(user => user.id === id);
+        
+        if (userIndex === -1) {
+            throw new Error('User not found!');
+        }
+
         const updatedUser = this.userDb[userIndex] = {id, ...data};
         return updatedUser;
     }

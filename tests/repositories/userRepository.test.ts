@@ -95,4 +95,18 @@ describe('Repository methods Test', () => {
         expect( updatedUser.name).toBe(newData.name);
         expect(updatedUser.email).toBe(newData.email);
     });
+
+
+    it('updateUser method should not update a user that does not exist', 
+        async () => {
+            const userId = 'nonExistingUserId';
+            
+            try {
+                await userRepository.updateUser(userId, dataUserTest);
+            } catch (error) {
+                if (error instanceof Error) {
+                    expect(error.message).toBe('User not found!');
+                }
+            }
+    });
 });

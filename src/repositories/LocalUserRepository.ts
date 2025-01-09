@@ -1,6 +1,6 @@
 import {v4 as uuid} from 'uuid';
 import { User } from "@prisma/client";
-import { ICreateUserDTO, IUserRepository } from "./IUserRepository";
+import { IUserDTO, IUserRepository } from "./IUserRepository";
 
 
 function userExistsByEmail(email: string, db: User[]): boolean {
@@ -16,7 +16,7 @@ class LocalUserRepository implements IUserRepository {
         this.userDb = [];
     }
 
-    createUser({ name, email }: ICreateUserDTO): void {
+    createUser({ name, email }: IUserDTO): void {
         const id = uuid();
         const user = {name, email, id}
         const userExists = userExistsByEmail(email, this.userDb)
@@ -42,7 +42,7 @@ class LocalUserRepository implements IUserRepository {
         return user;
     }
 
-    updateUser(id: string, data: User): Promise<User> {
+    updateUser(id: string, data: IUserDTO): Promise<User> {
         throw new Error("Method not implemented.");
     }
 

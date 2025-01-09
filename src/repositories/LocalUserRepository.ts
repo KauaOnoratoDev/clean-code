@@ -54,7 +54,13 @@ class LocalUserRepository implements IUserRepository {
     }
 
     deleteUser(id: string): void {
-        throw new Error("Method not implemented.");
+        const userIndex = this.userDb.findIndex(user => user.id === id);
+
+        if (userIndex === -1) {
+            throw new Error('User not found!');
+        }
+
+        this.userDb.splice(userIndex, 1);
     }
 }
 

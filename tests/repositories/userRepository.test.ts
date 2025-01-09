@@ -109,4 +109,28 @@ describe('Repository methods Test', () => {
                 }
             }
     });
+
+
+    it('deleteUser method should delete the user correctly', async () => {
+        const userId = await returnUserIdByName(dataUserTest.name);
+        const usersList = await userRepository.getUsers();
+        userRepository.deleteUser(userId);
+        const isUserExists = usersList.some(user => user.name === dataUserTest.name);
+
+        expect(isUserExists).toBeFalsy();
+        
+    });
+
+
+    it('', () => {
+        const userId = 'nonExistingUserId';
+
+        try {
+            userRepository.deleteUser(userId);
+        } catch (error) {
+            if (error instanceof Error) {
+                expect(error.message).toBe('User not found!')
+            }
+        }
+    });
 });
